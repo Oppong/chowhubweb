@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Contact;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class GeneralController extends Controller
@@ -64,5 +65,25 @@ class GeneralController extends Controller
     public function cartlist(){
 
         return view('cartlist');
+    }
+
+    public function checkout(){
+        return view('checkout');
+    }
+
+    public function thankyou(){
+        return view('thankyou');
+    }
+
+    public function services(){
+        return view('services');
+    }
+
+
+    public function orders(){
+        $orders = Order::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->with(['orderItems'])->get();
+        return view('orders', [
+            'orders' => $orders,
+        ]);
     }
 }

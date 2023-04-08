@@ -42,6 +42,11 @@
             </div>
     </div>
 
+
+
+</div>
+<div class="container m-auto">
+    <livewire:food-menu>
 </div>
 
 

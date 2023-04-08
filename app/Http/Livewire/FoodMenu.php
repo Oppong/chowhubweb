@@ -25,15 +25,15 @@ class FoodMenu extends Component
 
     public function render()
     {
-        $category = Category::all();
-        $foods = Food::where('name', 'like', '%' .  $this->search . '%')
-            ->orWhere('price', 'like', '%' .  $this->search . '%')
-            ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-            ->paginate($this->perPage);
+        $category = Category::with(['foods'])->get();
+        // $foods = Food::where('name', 'like', '%' .  $this->search . '%')
+        //     ->orWhere('price', 'like', '%' .  $this->search . '%')
+        //     ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+        //     ->paginate($this->perPage);
 
         return view('livewire.food-menu', [
             'category' => $category,
-            'foods' => $foods,
+            // 'foods' => $foods,
         ]);
     }
 
@@ -64,19 +64,3 @@ class FoodMenu extends Component
 }
 
 
-
-/*
-  public function foodOfCategory($cateName)
-    {
-        $category = Category::where('name', $cateName)->first();
-
-        if ($category) {
-
-            $foods = $category->foods()->get();
-            return $foods;
-        } else {
-            notify()->warning('the category could not be found');
-            return redirect('/menu');
-        }
-    }
- */

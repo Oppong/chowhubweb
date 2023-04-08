@@ -8,6 +8,7 @@
                   </div>
 
                   <!-- Navigation Links -->
+
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('employeedashboard')" :active="request()->routeIs('employeedashboard')">
                       <p>Dashboard</p>
@@ -17,6 +18,8 @@
                         <p>Sale</p>
                       </x-nav-link>
                 </div>
+
+
             </div>
 
             <!-- Settings Dropdown -->

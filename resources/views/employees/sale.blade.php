@@ -1,3 +1,3 @@
 <x-employee-app>
-    hello employee sales dashboard
+    <livewire:employee-sales />
 </x-employee-app>

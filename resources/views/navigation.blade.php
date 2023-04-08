@@ -27,10 +27,37 @@
                 </div>
             </a>
 
-
+            <x-dropdown>
+                <x-slot name="trigger">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                   </svg>
+                </x-slot>
+
+                  <x-slot name="content">
+                    <x-dropdown-link :href="route('cart')">
+                        {{ __('My Cart') }}
+                    </x-dropdown-link>
+                    <x-dropdown-link :href="route('orders')">
+                        {{ __('My Orders') }}
+                    </x-dropdown-link>
+                    <x-dropdown-link :href="route('profile.edit')">
+                        {{ __('Profile') }}
+                    </x-dropdown-link>
+
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                        </x-dropdown-link>
+                    </form>
+                </x-slot>
+
+            </x-dropdown>
 
             </div>
 

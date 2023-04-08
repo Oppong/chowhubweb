@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
             return redirect('/employee/dashboard')->with('message', 'Welcome Employee');
         }
         else {
-            return redirect('/dashboard')->with('status', 'Logged in successfully as user');
+            return redirect('/menu')->with('status', 'Logged in successfully as user');
         }
         // return redirect()->intended(RouteServiceProvider::HOME);
     }

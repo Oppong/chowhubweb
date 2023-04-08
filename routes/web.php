@@ -22,8 +22,16 @@ Route::get('/', [ GeneralController::class, 'index']);
 Route::get('/contact', [ GeneralController::class, 'contact']);
 Route::post('/send', [ GeneralController::class, 'send']);
 Route::get('/menu', [ GeneralController::class, 'menu']);
+Route::get('/services', [ GeneralController::class, 'services']);
 Route::get('/categoryfood/{categoryName}/', [ GeneralController::class, 'categoryMenu']);
-Route::get('/cartlist', [ GeneralController::class, 'cartlist']);
+Route::get('/thankyou', [ GeneralController::class, 'thankyou']);
+
+Route::middleware(['auth'])->group(function (){
+    Route::get('/cartlist', [ GeneralController::class, 'cartlist'])->name('cart');
+    Route::get('/checkout', [ GeneralController::class, 'checkout']);
+    Route::get('/orders', [ GeneralController::class, 'orders'])->name('orders');
+});
+
 
 
 
@@ -44,7 +52,7 @@ require __DIR__.'/auth.php';
 
 
 //routes for employees
-Route::prefix('employee')->middleware(['auth'])->group(function(){
+Route::prefix('employee')->middleware(['auth', 'isEmployee'])->group(function(){
     Route::get('/dashboard', [EmployeeController::class, 'dashboard'])->name('employeedashboard');
     Route::get('/sale', [EmployeeController::class, 'sale'])->name('sale');
 });

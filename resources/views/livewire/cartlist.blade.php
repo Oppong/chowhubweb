@@ -81,25 +81,35 @@
                     </div>
 
                 </div>
-                <div class="mt-4">
-                        <p></p>
-                </div>
+
             @empty
                 <p class="font-bold text center font-Mulish">No item in Cart</p>
             @endforelse
-
-
             <div class="flex justify-between mt-5">
                 <div>
                     <p>Total</p>
                 </div>
                 <div>
-                    Ghs{{$totalPrice}}
+                    <p class="font-bold text center font-Mulish">Ghs{{$totalPrice}}</p>
+
                 </div>
             </div>
-            <button class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-600 rounded">
+
+            @if ($totalPrice == 0)
+            <button class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-400 rounded" disabled>
                 Checkout
             </button>
+            @else
+            <a href="/checkout">
+                <button class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-600 rounded">
+                    Checkout
+                </button>
+            </a>
+
+            @endif
+
+
+
         </div>
 
     </div>
