@@ -26,8 +26,9 @@
                     <label for="payment_mode">Payment Method</label>
                     <select  id="payment_mode" wire:model.defer="payment_mode" class="block w-full px-4 py-2 border rounded">
                         <option value="" selected>Select Payment Method</option>
-                        <option value="mobile money">Mobile Money at pickup</option>
-                        <option value="cash">Cash at pickup</option>
+                        <option value="cash">Cash</option>
+                        <option value="mobile money">Mobile Money</option>
+
                     </select>
                 </div>
                 <div class="flex justify-between">
@@ -57,11 +58,6 @@
             </div>
 
             @endif
-
-
-
-
-
 
         </div>
     </div>

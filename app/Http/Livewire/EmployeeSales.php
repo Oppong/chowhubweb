@@ -2,15 +2,16 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Cart;
+use App\Models\Food;
+use App\Models\Order;
 use Livewire\Component;
 use App\Models\Category;
-use App\Models\Food;
-use App\Models\Cart;
-use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 
 class EmployeeSales extends Component
@@ -27,35 +28,46 @@ class EmployeeSales extends Component
     public $checkSuccess;
     public $cartlist;
 
+    // protected $listeners = ['Food Ordered', 'render'];
+
     public function render()
     {
+        $startDate = Carbon::today()->startOfDay();
+        $endDate = Carbon::today()->endOfDay();
+
+        $newOrdersCount  = Order::whereBetween('created_at', [$startDate, $endDate])
+        ->where('order_status', '=', 'new' )
+        ->count();
+
         $category = Category::all();
 
-       $this->cartlist = Cart::where('user_id', auth()->user()->id)->get();
+        $this->cartlist = Cart::where('user_id', auth()->user()->id)->get();
 
         $foods = Food::where('name', 'like', '%' .  $this->search . '%')
-        ->orWhere('price', 'like', '%' .  $this->search . '%')
-        ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-        ->paginate($this->perPage);
+            ->orWhere('price', 'like', '%' .  $this->search . '%')
+            ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+            ->paginate($this->perPage);
 
         return view('livewire.employee-sales', [
             'category' => $category,
             'foods' => $foods,
             'cartlist' => $this->cartlist,
+            'newOrdersCount' => $newOrdersCount,
         ]);
     }
 
-    public function addToCart($food_id){
+    public function addToCart($food_id)
+    {
 
-        if(Auth::check()){
+        if (Auth::check()) {
 
-            if(Cart::where('user_id', auth()->user()->id)->where('food_id',$food_id)->exists()){
+            if (Cart::where('user_id', auth()->user()->id)->where('food_id', $food_id)->exists()) {
                 session()->flash('message', 'Food Already in Cart');
                 $this->dispatchBrowserEvent('message', [
                     'text' => 'Food Already in Cart',
                     'type' => 'warning'
                 ]);
-            }else{
+            } else {
                 Cart::create([
                     'user_id' => auth()->user()->id,
                     'food_id' => $food_id,
@@ -69,7 +81,7 @@ class EmployeeSales extends Component
                     'type' => 'success'
                 ]);
             }
-        }else {
+        } else {
             session()->flash('message', 'Please Login to Continue');
             $this->dispatchBrowserEvent('message', [
                 'text' => 'Please Login to Continue',
@@ -103,7 +115,7 @@ class EmployeeSales extends Component
     {
         $cartData = Cart::where('id', $cartId)->where('user_id', auth()->user()->id)->first();
 
-        if ($cartData){
+        if ($cartData) {
             $cartData->delete();
             $this->emit('CartAddedOrUpdated');
         }
@@ -115,29 +127,31 @@ class EmployeeSales extends Component
     }
 
 
-    public function paidWithCash(){
+    public function paidWithCash()
+    {
 
         $order = Order::create([
             'user_id' => auth()->user()->id,
             'name' => auth()->user()->name,
             'phone' => auth()->user()->phone,
-            'order_id' => 'chow-'.Str::random(5),
+            'order_id' => 'chow-' . Str::random(5),
             'payment_mode' => 'Cash',
+            'order_type' => 'POS',
+            'order_status' => 'old',
             'status' => 'Delivered',
         ]);
 
-        foreach ($this->cartlist as $cartItems){
+        foreach ($this->cartlist as $cartItems) {
 
             $this->checkSuccess =  $orderItems = OrderItem::create([
-            'order_id' => $order->id,
-            'food_id' => $cartItems->food_id,
-            'quantity' => $cartItems->quantity,
-            'price' => $cartItems->food->price,
-        ]);
-
+                'order_id' => $order->id,
+                'food_id' => $cartItems->food_id,
+                'quantity' => $cartItems->quantity,
+                'price' => $cartItems->food->price,
+            ]);
         }
 
-        if($this->checkSuccess){
+        if ($this->checkSuccess) {
             Cart::where('user_id', auth()->user()->id)->delete();
             $this->emit('CartAddedOrUpdated');
             session()->flash('message', 'Your Order has been placed successfully');
@@ -146,7 +160,53 @@ class EmployeeSales extends Component
                 'type' => 'success'
             ]);
 
-        }else{
+            return redirect()->route('saleprint', $order);
+        } else {
+            session()->flash('message', 'Failed to place your order please try again later');
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Failed to process the order please try again later',
+                'type' => 'error'
+            ]);
+        }
+
+        // return 'i have been taped';
+    }
+
+    public function paidWithMomo()
+    {
+
+        $order = Order::create([
+            'user_id' => auth()->user()->id,
+            'name' => auth()->user()->name,
+            'phone' => auth()->user()->phone,
+            'order_id' => 'chow-' . Str::random(5),
+            'payment_mode' => 'Mobile Money',
+            'order_type' => 'POS',
+            'order_status' => 'old',
+            'status' => 'Delivered',
+        ]);
+
+        foreach ($this->cartlist as $cartItems) {
+
+            $this->checkSuccess =  $orderItems = OrderItem::create([
+                'order_id' => $order->id,
+                'food_id' => $cartItems->food_id,
+                'quantity' => $cartItems->quantity,
+                'price' => $cartItems->food->price,
+            ]);
+        }
+
+        if ($this->checkSuccess) {
+            Cart::where('user_id', auth()->user()->id)->delete();
+            $this->emit('CartAddedOrUpdated');
+            session()->flash('message', 'Your Order has been placed successfully');
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Order Processed Successfully',
+                'type' => 'success'
+            ]);
+
+            return redirect()->route('saleprint', $order);
+        } else {
             session()->flash('message', 'Failed to place your order please try again later');
             $this->dispatchBrowserEvent('message', [
                 'text' => 'Failed to process the order please try again later',

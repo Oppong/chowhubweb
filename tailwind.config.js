@@ -22,6 +22,9 @@ module.exports = {
                 center: true,
                 padding: '2rem',
               },
+              screens: {
+                'print': { 'raw': 'print' },
+            }
         },
     },
 

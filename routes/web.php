@@ -55,4 +55,7 @@ require __DIR__.'/auth.php';
 Route::prefix('employee')->middleware(['auth', 'isEmployee'])->group(function(){
     Route::get('/dashboard', [EmployeeController::class, 'dashboard'])->name('employeedashboard');
     Route::get('/sale', [EmployeeController::class, 'sale'])->name('sale');
+    Route::get('/saleprint/{order_id}/', [EmployeeController::class, 'saleprint'])->name('saleprint');
+    Route::get('/emporders', [EmployeeController::class, 'emporders'])->name('emporders');
+    // Route::get('/print/{order_id}/', [EmployeeController::class, 'printReciept'])->name('printreciept');
 });

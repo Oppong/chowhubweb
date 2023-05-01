@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if(Auth::user()->role == '2'){
-            return redirect('/employee/dashboard')->with('message', 'Welcome Employee');
+            return redirect('/employee/sale')->with('message', 'Welcome Employee');
         }
         else {
             return redirect('/menu')->with('status', 'Logged in successfully as user');

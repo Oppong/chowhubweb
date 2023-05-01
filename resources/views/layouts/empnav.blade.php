@@ -3,8 +3,26 @@
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
+                <div class="self-center">
+                    <p class="text-black font-mulish">Today: {{Carbon\Carbon::now()->toFormattedDateString()}} </p>
+                  </div>
 
                   <!-- Navigation Links -->
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    {{-- <x-nav-link :href="route('employeedashboard')" :active="request()->routeIs('employeedashboard')">
+                      <p>Dashboard</p>
+                    </x-nav-link> --}}
+
+                    <x-nav-link :href="route('sale')" :active="request()->routeIs('sale')">
+                        <p>Sale</p>
+                      </x-nav-link>
+
+                      <x-nav-link :href="route('emporders')" :active="request()->routeIs('emporders')">
+                        <p>Orders</p>
+                      </x-nav-link>
+
+                </div>
 
 
             </div>

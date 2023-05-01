@@ -40,10 +40,12 @@ class FoodResource extends Resource
                 ->numeric()
                 ->maxLength(255),
 
-                TextInput::make('status')
+                Select::make('status')
                 ->required()
-                ->default('enabled')
-                ->maxLength(255),
+                ->options([
+                    'enabled' => 'Enabled',
+                    'disabled' => 'Disabled'
+                ]),
 
                 TextInput::make('discount_percentage')
                 ->numeric(),

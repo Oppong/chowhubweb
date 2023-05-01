@@ -11,6 +11,7 @@
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </head>
 
 <body class="antialiased" style="font-family: 'Mulish', sans-serif;
@@ -21,7 +22,7 @@
 
             <!-- Page Content -->
             <main class="w-full overflow-hidden">
-                @include('layouts.navigation')
+                @include('layouts.empnav')
                 <!-- Page Heading -->
                 @if (isset($header))
                     <header class="bg-white shadow dark:bg-gray-800">

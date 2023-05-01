@@ -15,8 +15,14 @@
                     <p class="mt-2 font-bold text-center font-Mulish ">{{ $food->name }}</p>
                     <p class="text-sm font-semibold text-center font-Mulish ">Ghs {{ $food->price }}.00</p>
                     <div class="flex flex-col px-10 mt-3 sm:px-20 place-content-center">
-                        <button class="px-4 py-2 text-sm text-white bg-red-600 rounded-full ">
-                            Add to Cart
+                        <button type="button" wire.loading.attr="disabled" wire:click="addToCart({{ $food->id }})"
+                            class="px-4 py-2 text-sm text-white bg-red-600 rounded-full hover:bg-red-800 ">
+                            <span wire:loading.remove wire:target="addToCart({{ $food->id }})">
+                                Add to Cart
+                            </span>
+                            <span wire:loading wire:target="addToCart({{ $food->id }})">
+                                    Adding...
+                            </span>
                         </button>
                     </div>
 

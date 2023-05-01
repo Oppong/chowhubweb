@@ -1,5 +1,10 @@
 @extends('base')
 
+@section('title', 'Menu Page')
+
+@section('description')
+This page displays the Food Menu of Chowhub
+@stop
 
 @section('content')
 <div class="h-[14rem]">

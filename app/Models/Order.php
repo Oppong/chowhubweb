@@ -18,6 +18,8 @@ class Order extends Model
         'phone',
         'order_id',
         'payment_mode',
+        'order_type',
+        'order_status',
         // 'payment_id',
         'status',
     ];

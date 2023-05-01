@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('phone');
             $table->string('order_id');
             $table->string('payment_mode');
-            $table->string('status');
+            $table->string('order_type')->default('POS')->comment('POS, Mobile App, Web App');
+            $table->string('status')->comment('not_pickedup and Delivered');
+            $table->string('order_status')->default('new')->comment('new and old');
             // $table->string('payment_id')->nullable();
             $table->timestamps();
         });

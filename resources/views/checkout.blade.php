@@ -1,5 +1,10 @@
 @extends('base')
 
+@section('title', 'Checkout Page')
+
+@section('description')
+Customers checkout page
+@stop
 
 @section('content')
 <div class="h-[14rem]">

@@ -14,6 +14,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function canAccessFilament(): bool
+    {
+        return str_ends_with($this->email, 'nanama@gmail.com');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

@@ -3,7 +3,9 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <div class="min-h-screen col-span-2 px-4 py-4 bg-slate-50">
             <div class="flex items-center justify-between">
-                <h3 class="text-xl font-bold font-Mulish">Food Menu</h3>
+                <h3 class="text-xl font-bold font-Mulish" wire:poll.20s wire:key="polling">Food Menu @if ($newOrdersCount > 0)
+                    <span class="text-red-600">(New {{$newOrdersCount}})</span>
+                @endif </h3>
                 <div class="text-center">
                     <input type="search" name="search" id="search" class="px-8 py-2 mr-4 text-sm bg-white rounded-full"
                         placeholder="Search the Menu ..." wire:model="search">
@@ -163,14 +165,8 @@
                     </div>
                 </div>
                 <hr>
-                <div class="flex justify-between mt-4 mb-4">
-                    <div>
-                        <p class="text-sm font-Mulish">Discount</p>
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold font-Mulish ">0%</p>
-                    </div>
-                </div>
+
+
                 <hr>
                 <div class="flex justify-between mt-4 mb-4">
                     <div>
@@ -182,30 +178,36 @@
                 </div>
                 <hr>
 
-                @if ($totalPrice == 0)
-                <button type="button" class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-300 rounded" disabled>
-                    Paid with Cash
-                </button>
+                <div>
+                    @if ($totalPrice == 0)
+                    <button type="button" class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-300 rounded" disabled>
+                        Paid with Cash
+                    </button>
 
-                <button type="button" class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-300 rounded" disabled>
-                    Paid with Mobile Money
-                </button>
-                @else
-                    <button type="button" wire:click="paidWithCash"
-                        class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-700 rounded">
-                        <span wire:loading.remove wire:target="paidWithCash">
-                            Paid with Cash
-                        </span>
-                        <span wire:loading wire:target="paidWithCash">
-                            Processing Payment...
-                        </span>
+                    <button type="button" class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-300 rounded" disabled>
+                        Paid with Mobile Money
                     </button>
-                    <button type="button" class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-700 rounded">
-                        <span>
-                            Paid with Mobile Money
-                        </span>
-                    </button>
-                @endif
+                    @else
+                        <button type="button" wire:click="paidWithCash" wire:loading.attr="disabled" id="cash"
+                            class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-700 rounded">
+                            <span wire:loading.remove wire:target="paidWithCash">
+                                Paid with Cash
+                            </span>
+                            <span wire:loading wire:target="paidWithCash">
+                                Processing Payment...
+                            </span>
+                        </button>
+                        <button type="button" wire:click="paidWithMomo" wire:loading.attr="disabled" id="momo" class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-700 rounded">
+                            <span wire:loading.remove wire:target="paidWithMomo">
+                                Paid with Mobile Money
+                            </span>
+                            <span wire:loading wire:target="paidWithMomo" >
+                                Processing Payment...
+                            </span>
+                        </button>
+                    @endif
+                </div>
+
 
 
             </div>
@@ -214,15 +216,12 @@
     </div>
 </div>
 
-
-{{-- @foreach ($category as $cate)
-                <div class="inline-block mt-5 mb-6 overflow-y-auto">
-                    <a href="{{ url('/categoryfood/' . $cate->name) }}">
-                        <button
-                            class="px-8 py-2 text-sm bg-white border border-red-600 rounded-full hover:bg-red-600 hover:text-white"
-                            wire:click="foodOfCategory({{ $cate->name }})">
-                            {{ $cate->name }}
-                        </button>
-                    </a>
-                </div>
-                @endforeach --}}
+{{--
+<div class="flex justify-between mt-4 mb-4">
+                    <div>
+                        <p class="text-sm font-Mulish">Discount</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold font-Mulish ">0%</p>
+                    </div>
+                </div> --}}

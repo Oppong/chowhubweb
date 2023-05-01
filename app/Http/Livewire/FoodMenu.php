@@ -26,14 +26,14 @@ class FoodMenu extends Component
     public function render()
     {
         $category = Category::with(['foods'])->get();
-        // $foods = Food::where('name', 'like', '%' .  $this->search . '%')
-        //     ->orWhere('price', 'like', '%' .  $this->search . '%')
-        //     ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-        //     ->paginate($this->perPage);
+        $foods = Food::where('name', 'like', '%' .  $this->search . '%')
+            ->orWhere('price', 'like', '%' .  $this->search . '%')
+            ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
+            ->paginate($this->perPage);
 
         return view('livewire.food-menu', [
             'category' => $category,
-            // 'foods' => $foods,
+            'foods' => $foods,
         ]);
     }
 
@@ -45,6 +45,10 @@ class FoodMenu extends Component
 
             if (Cart::where('user_id', auth()->user()->id)->where('food_id', $food_id)->exists()) {
                 session()->flash('message', 'Food Already in Cart');
+                $this->dispatchBrowserEvent('message', [
+                    'text' => 'Food Already in Cart',
+                    'type' => 'error'
+                ]);
 
             } else {
                Cart::create([
@@ -55,10 +59,17 @@ class FoodMenu extends Component
                 //broadcast an event or tell the app that something has happened
                 $this->emit('CartAddedOrUpdated');
                 session()->flash('message', 'Food has been added to Cart');
+                $this->dispatchBrowserEvent('message', [
+                    'text' => 'Food has been added to Cart',
+                    'type' => 'success'
+                ]);
             }
         } else {
             session()->flash('message', 'Plase Login to Continue');
-            // notify()->success('Please Login to Continue');
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Please Login to Continue',
+                'type' => 'info'
+            ]);
         }
     }
 }

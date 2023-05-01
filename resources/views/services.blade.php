@@ -1,5 +1,10 @@
 @extends('base')
 
+@section('title', 'Contact Page')
+
+@section('description')
+These are the servics offered by The ChowHub
+@stop
 
 @section('content')
 

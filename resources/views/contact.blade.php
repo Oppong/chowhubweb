@@ -1,5 +1,10 @@
 @extends('base')
 
+@section('title', 'Contact Page')
+
+@section('description')
+You Can Contact Chowhub by Filling the Form on this Page
+@stop
 
 @section('content')
 <div class="h-[14rem]">

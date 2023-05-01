@@ -1,4 +1,10 @@
 <x-guest-layout>
+
+    <div class="mb-4 text-center">
+        <h4 class="text-xl font-extrabold font-Mulish">Welcome!!</h4>
+        <p class="text-sm font-normal font-Mulish">Please Sign Up for an Account</p>
+    </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -44,7 +50,7 @@
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ml-4">
+            <x-primary-button class="ml-4 bg-red-600 hover:bg-red-700">
                 {{ __('Register') }}
             </x-primary-button>
         </div>

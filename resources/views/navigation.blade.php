@@ -1,10 +1,10 @@
-<div class="container m-auto">
-    <nav class="flex items-center py-4">
+<div class="container m-auto" x-data="{isOpen: false}" >
+    <nav class="flex items-center justify-between py-4">
         <div>
             <a href="/"><img src="./images/chub.png" alt="" class="h-12"></a>
         </div>
         {{-- for tablet and desktop --}}
-        <ul class="items-center justify-center flex-1 hidden gap-10 text-sm sm:flex font-Mulish">
+        <ul class="items-center justify-center flex-1 hidden gap-10 text-sm sm:flex font-Mulish ">
             <li class="cursor-pointer"> <a href="/"> Home</a></li>
             <li class="cursor-pointer"><a href="/menu">Menu</a> </li>
             <li class="cursor-pointer"> <a href="/contact">Contact</a> </li>
@@ -15,8 +15,9 @@
         <div class="text-right ">
             @auth
 
-            <div class="flex items-center gap-6">
 
+        <div class="hidden sm:block">
+            <div class="flex items-center gap-6 ">
                 <a href="/cartlist">
                 <div class="flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
@@ -58,10 +59,11 @@
                 </x-slot>
 
             </x-dropdown>
-
             </div>
+        </div>
 
             @else
+            <div class="hidden sm:block">
                 <a href="{{ route('login') }}" class="text-sm font-Mulish">Sign In</a>
 
                 @if (Route::has('register'))
@@ -70,9 +72,27 @@
                     </button>
                 @endif
             @endauth
+            </div>
         </div>
-    @endif
+        @endif
 
+        <div class="sm:hidden">
+            <button @click="isOpen = !isOpen">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+                </svg>
+            </button>
+        </div>
 
     </nav>
+
+    <div x-show="isOpen" class="flex flex-col py-4 text-center sm:hidden gap-y-1">
+        <a href="/" class="pb-1 text-sm font-medium text-gray-600 font-Montserrat"> Home</a>
+        <a href="/menu" class="pb-1 text-sm font-medium text-gray-600 font-Montserrat">Menu</a>
+        <a href="/contact" class="pb-1 text-sm font-medium text-gray-600 font-Montserrat">Contact</a>
+        <a href="/login" class="pb-1 text-sm font-medium text-gray-600 font-Montserrat">Login</a>
+        <a href="/register" class="pb-1 text-sm font-medium text-gray-600 font-Montserrat">Register</a>
+    </div>
 </div>

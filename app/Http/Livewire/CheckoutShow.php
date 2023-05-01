@@ -40,6 +40,8 @@ class CheckoutShow extends Component
             'phone' => $this->phone,
             'order_id' => 'chow-'.Str::random(5),
             'payment_mode' =>$this->payment_mode,
+            'order_type' => 'Web App',
+            'order_status' => 'new',
             'status' => 'not_pickedup',
         ]);
 
@@ -57,6 +59,7 @@ class CheckoutShow extends Component
 
         if($this->checkSuccess){
             Cart::where('user_id', auth()->user()->id)->delete();
+            $this->emit('Food Ordered');
             session()->flash('message', 'Your Order has been placed successfully');
             return redirect('/thankyou');
         }else{

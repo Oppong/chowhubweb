@@ -1,5 +1,10 @@
 @extends('base')
 
+@section('title', 'Thankyou Page')
+
+@section('description')
+Customers ThankyouPage
+@stop
 
 
 @section('content')

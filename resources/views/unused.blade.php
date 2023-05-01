@@ -138,3 +138,50 @@
         </div>
     </body>
 </html>
+
+
+
+{{-- searching place --}}
+
+
+<div class="flex justify-between mb-5">
+    <div class="flex justify-center">
+        {{-- searching --}}
+        <input type="search" name="search" id="search"
+            class="px-2 py-2 mr-4 text-sm bg-white rounded shadow" placeholder="Search Orders ..."
+            wire:model="search">
+
+        {{-- ordery by --}}
+        <div class="w-24 mr-2 ">
+            <select wire:model="orderBy" name="orderBy" id="orderBy"
+                class="relative w-full px-2 py-2 placeholder-gray-400 rounded">
+                <span>
+                    <svg class="self-center w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5" />
+                    </svg>
+                </span>
+                <option value="id" class="text-sm">ID</option>
+                <option value="name" class="text-sm">Name</option>
+                <option value="phone" class="text-sm">Phone</option>
+                <option value="status" class="text-sm">Status</option>
+
+            </select>
+        </div>
+
+        {{-- perPage --}}
+        <div class="w-24">
+            <select wire:model="perPage" name="perPage" id="perPage"
+                class="relative w-full px-2 py-2 placeholder-gray-400 rounded">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+
+    </div>
+
+</div>

@@ -1,5 +1,10 @@
 @extends('base')
 
+@section('title', 'Orders Page')
+
+@section('description')
+Customers Order Page
+@stop
 
 
 @section('content')
