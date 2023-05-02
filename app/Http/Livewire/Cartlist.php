@@ -51,15 +51,10 @@ class Cartlist extends Component
 
     public function render()
     {
-        $cartlist = Cart::where('user_id', auth()->user()->id)->get();
+        $cartlist = Cart::where('user_id', auth()->user()->id)->with('food')->get();
         return view('livewire.cartlist', [
             'cartlist' => $cartlist,
         ]);
     }
 }
 
-
-  // if ($this->quantityCount > 1) {
-        //     $this->quantityCount--;
-        // }
- // $this->quantityCount++;

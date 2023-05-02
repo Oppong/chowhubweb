@@ -72,7 +72,7 @@ class CheckoutShow extends Component
 
     public function totalProductAmount()
     {
-        $this->carts = Cart::where('user_id', auth()->user()->id)->get();
+        $this->carts = Cart::where('user_id', auth()->user()->id)->with('food')->get();
 
         foreach ($this->carts as $cartItems) {
             $this->totalFoodAmount += $cartItems->food->price * $cartItems->quantity;

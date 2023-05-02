@@ -17,6 +17,8 @@
         "ryangjchandler/filament-profile": "^0.3.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.8",
+        "beyondcode/laravel-query-detector": "^1.7",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.20",
         "laravel/pint": "^1.0",

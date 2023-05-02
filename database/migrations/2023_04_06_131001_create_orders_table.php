@@ -21,8 +21,10 @@ return new class extends Migration
             $table->string('order_type')->default('POS')->comment('POS, Mobile App, Web App');
             $table->string('status')->comment('not_pickedup and Delivered');
             $table->string('order_status')->default('new')->comment('new and old');
-            // $table->string('payment_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->index('order_id');
         });
     }
 

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->double('discount_percentage')->nullable();
             $table->foreignId('category_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

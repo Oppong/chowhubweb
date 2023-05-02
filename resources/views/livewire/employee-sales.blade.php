@@ -56,7 +56,11 @@
                     <p>No Food Available on Menu</p>
                 @endforelse
             </div>
+            <div class="mt-4">
+                {{$foods->links()}}
+            </div>
         </div>
+
 
 
         {{-- order details   --}}
@@ -152,6 +156,8 @@
                 @endforelse
             </div>
 
+
+
             {{-- order summary --}}
             <div class="mt-12">
                 <h3 class="mb-4 text-lg font-bold font-Mulish">Order Summary</h3>
@@ -187,6 +193,11 @@
                     <button type="button" class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-300 rounded" disabled>
                         Paid with Mobile Money
                     </button>
+
+                    <button type="button" class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-300 rounded" disabled>
+                        Paid with POS
+                    </button>
+
                     @else
                         <button type="button" wire:click="paidWithCash" wire:loading.attr="disabled" id="cash"
                             class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-700 rounded">
@@ -205,6 +216,15 @@
                                 Processing Payment...
                             </span>
                         </button>
+
+                        <button type="button" wire:click=" paidWithPOS" wire:loading.attr="disabled" id="pos" class="w-full px-8 py-3 mt-4 text-sm text-white bg-teal-700 rounded">
+                            <span wire:loading.remove wire:target=" paidWithPOS">
+                                Paid with POS
+                            </span>
+                            <span wire:loading wire:target=" paidWithPOS" >
+                                Processing Payment...
+                            </span>
+                        </button>
                     @endif
                 </div>
 
@@ -216,12 +236,3 @@
     </div>
 </div>
 
-{{--
-<div class="flex justify-between mt-4 mb-4">
-                    <div>
-                        <p class="text-sm font-Mulish">Discount</p>
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold font-Mulish ">0%</p>
-                    </div>
-                </div> --}}

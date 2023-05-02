@@ -216,4 +216,48 @@ class EmployeeSales extends Component
 
         // return 'i have been taped';
     }
+
+    public function paidWithPOS()
+    {
+
+        $order = Order::create([
+            'user_id' => auth()->user()->id,
+            'name' => auth()->user()->name,
+            'phone' => auth()->user()->phone,
+            'order_id' => 'chow-' . Str::random(5),
+            'payment_mode' => 'POS',
+            'order_type' => 'POS',
+            'order_status' => 'old',
+            'status' => 'Delivered',
+        ]);
+
+        foreach ($this->cartlist as $cartItems) {
+
+            $this->checkSuccess =  $orderItems = OrderItem::create([
+                'order_id' => $order->id,
+                'food_id' => $cartItems->food_id,
+                'quantity' => $cartItems->quantity,
+                'price' => $cartItems->food->price,
+            ]);
+        }
+
+        if ($this->checkSuccess) {
+            Cart::where('user_id', auth()->user()->id)->delete();
+            $this->emit('CartAddedOrUpdated');
+            session()->flash('message', 'Your Order has been placed successfully');
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Order Processed Successfully',
+                'type' => 'success'
+            ]);
+
+            return redirect()->route('saleprint', $order);
+        } else {
+            session()->flash('message', 'Failed to place your order please try again later');
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Failed to process the order please try again later',
+                'type' => 'error'
+            ]);
+        }
+
+    }
 }

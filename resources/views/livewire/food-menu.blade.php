@@ -1,11 +1,11 @@
 <div>
 
     <div class="container m-auto my-24" x-data="{ open: false }">
-        @if (Session::has('message'))
+        {{-- @if (Session::has('message'))
             <div class="px-4 py-4 mb-2 text-white bg-teal-500">
                 <p>{{ Session::get('message') }}</p>
             </div>
-        @endif
+        @endif --}}
         <h3 class="mb-4 text-2xl font-bold text-center font-Mulish">What are you craving of?</h3>
 
         <div class="mb-12 text-center">
@@ -34,7 +34,8 @@
                         <img src="{{ url('/storage/' . $food->image) }}" alt=""
                             class="object-cover w-full h-40 px-4 rounded-sm">
                         <p class="mt-2 font-bold text-center font-Mulish ">{{ $food->name }}</p>
-                        <p class="text-sm font-semibold text-center font-Mulish ">Ghs {{ $food->price }}.00</p>
+                        <p class="font-normal text-center  font-Mulish text-gray-700 text-[13px]">{{ $food->description }}</p>
+                        <p class="mt-1 text-sm font-semibold text-center font-Mulish">Ghs {{ $food->price }}.00</p>
                         <div class="flex flex-col px-10 mt-3 sm:px-20 place-content-center">
                             <button type="button" wire.loading.attr="disabled"
                                 wire:click="addToCart({{ $food->id }})"
@@ -55,13 +56,13 @@
             @endforelse
         </div>
 
-        <div class="my-8 ml-2 mr-10">
-            <p>{{ $foods->links() }}</p>
-        </div>
-
     </div>
 
 </div>
+
+{{-- <div class="my-8 ml-2 mr-10">
+    <p>{{ $foods->links() }}</p>
+</div> --}}
 
 
 

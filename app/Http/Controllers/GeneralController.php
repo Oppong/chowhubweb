@@ -81,7 +81,7 @@ class GeneralController extends Controller
 
 
     public function orders(){
-        $orders = Order::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->with(['orderItems'])->get();
+        $orders = Order::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->with('orderItems')->get();
         return view('orders', [
             'orders' => $orders,
         ]);

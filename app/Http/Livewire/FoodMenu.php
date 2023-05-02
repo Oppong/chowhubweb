@@ -29,7 +29,8 @@ class FoodMenu extends Component
         $foods = Food::where('name', 'like', '%' .  $this->search . '%')
             ->orWhere('price', 'like', '%' .  $this->search . '%')
             ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
-            ->paginate($this->perPage);
+            ->limit(8)
+            ->get();
 
         return view('livewire.food-menu', [
             'category' => $category,

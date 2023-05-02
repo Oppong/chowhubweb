@@ -29,12 +29,15 @@ Customers Order Page
                             @foreach ($order->orderItems as $orderItem)
                                 <div class="flex mb-5">
                                     {{-- image --}}
+
                                     <div>
                                         <div class="w-24 h-24 mr-4 bg-black rounded-sm ">
                                             <img src="{{ url('/storage/' . $orderItem->food->image) }} " alt=""
                                                 class="object-cover w-24 h-24 rounded-sm ">
                                         </div>
                                     </div>
+
+
                                     {{-- text --}}
                                     <div>
                                         <p class="font-Mulish">{{ $orderItem->food->name }}</p>

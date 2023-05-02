@@ -13,6 +13,7 @@
                     <img src="{{ url('/storage/' . $food->image) }}" alt=""
                         class="object-cover w-full h-40 px-4 rounded-sm">
                     <p class="mt-2 font-bold text-center font-Mulish ">{{ $food->name }}</p>
+                    <p class="font-normal text-center  font-Mulish text-gray-700 text-[13px]">{{ $food->description }}</p>
                     <p class="text-sm font-semibold text-center font-Mulish ">Ghs {{ $food->price }}.00</p>
                     <div class="flex flex-col px-10 mt-3 sm:px-20 place-content-center">
                         <button type="button" wire.loading.attr="disabled" wire:click="addToCart({{ $food->id }})"

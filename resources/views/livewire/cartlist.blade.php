@@ -24,15 +24,19 @@
                         <div class="">
                             <div class="flex justify-between ">
                                 <p class="font-medium font-Mulish"> {{ $cart->food->name }}</p>
-                                <p class="ml-6 font-medium font-Mulish"> Ghs{{ $cart->food->price }}</p>
+                                <div>
+                                    <p class="ml-6 font-medium font-Mulish">
+                                        Ghs{{ $cart->quantity * $cart->food->price }}</p>
+                                        @php
+                                       $totalPrice += $cart->quantity * $cart->food->price
+                                        @endphp
+                                </div>
+
                             </div>
                             <div class="flex items-center">
-                                <p class="text-sm font-thin font-Mulish"> {{ $cart->food->category->name }}</p>
-                                <p class="ml-10 text-sm font-thin font-Mulish">
-                                    Ghs{{ $cart->quantity * $cart->food->price }}</p>
-                                    @php
-                                    $totalPrice += $cart->quantity * $cart->food->price
-                                    @endphp
+                                {{-- <p class="text-sm font-thin font-Mulish"> {{ $cart->food->category->name }}</p> --}}
+                                <p class="text-sm font-normal font-Mulish">Price: Ghs{{ $cart->food->price }}</p>
+
                             </div>
                             <div class="flex justify-between flex-1 mt-6 text-sm font-Mulish">
                                 <div class="flex items-centers">
